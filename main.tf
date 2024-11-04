@@ -1,8 +1,14 @@
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
-
+terraform {
+  backend "s3" {
+    bucket = "zaftech-terraform"
+    key    = "var.student_id"
+    region = "us-east-1" // Change this to match the region of your S3 bucket
+  }
+}
 # Create a VPC
 resource "aws_vpc" "wordpress_vpc" {
   cidr_block = "10.0.0.0/16"
