@@ -184,6 +184,7 @@ resource "aws_instance" "wordpress_instance" {
                 sudo firewall-cmd --reload
 
                 echo "WordPress installation is complete. Access your site at http://$(curl -s ifconfig.me)"
+                EOF
 
   tags = {
     Name = "WordPressInstance"
