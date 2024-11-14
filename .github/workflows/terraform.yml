@@ -21,21 +21,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Install  the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-    - name: Configure Terraform Cloud Credentials
-      env:
-        TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-      run: |
-        echo "credentials \"app.terraform.io\" { token = \"$TF_API_TOKEN\" }" > ~/.terraformrc
-        echo "Terraform Cloud credentials configured."
       
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}      
+    - name: Configure AWS Credentials
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+      run: |
+          echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY set for this job."
 
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve
