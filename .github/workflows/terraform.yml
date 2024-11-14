@@ -34,6 +34,11 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
       run: |
           echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY set for this job."
+    - name: Terraform apply 
+      run: terraform apply --auto-approve
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}      
 
       # - name: Terraform Apply
       #   run: terraform apply -auto-approve
